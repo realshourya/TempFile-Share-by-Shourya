@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ code }} - TempShare</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+<section class="card error-page">
+<div class="logo">!</div>
+<h1>{{ code }}</h1>
+<p>{{ message }}</p>
+<a class="button" href="{{ url_for('index') }}">Go back</a>
+</section>
+</main>
+</body>
+</html>

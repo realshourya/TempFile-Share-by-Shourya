@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempShare</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+<section class="card">
+<div class="brand"><div class="logo">↑</div><div><h1>TempShare</h1><p>Share files temporarily.</p></div></div>
+
+<form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+<label class="drop-zone" id="dropZone">
+<input type="file" name="file" id="fileInput" hidden>
+<div class="upload-icon">↑</div>
+<h2>Drop your file here</h2>
+<p>or <span>browse from your computer</span></p>
+<small>Maximum file size: 100 MB</small>
+</label>
+
+<div class="selected" id="selectedFile" hidden>
+<strong id="fileName"></strong><span id="fileSize"></span>
+</div>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}<div class="message error">{{ messages[0] }}</div>{% endif %}
+{% endwith %}
+
+<button type="submit" class="button">Upload & Create 24-Hour Link</button>
+</form>
+
+{% if download_url %}
+<div class="result">
+<h2>Your link is ready</h2>
+<p>Anyone with this link can download the file for 24 hours.</p>
+<div class="link-box">
+<input type="text" value="{{ download_url }}" id="shareLink" readonly>
+<button type="button" onclick="copyLink()">Copy</button>
+</div>
+<p class="expiry">Expires: {{ expires_at }}</p>
+<a class="download-link" href="{{ download_url }}">Test download link</a>
+</div>
+{% endif %}
+</section>
+<footer>Files and links expire after 24 hours.</footer>
+</main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
